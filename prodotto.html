@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">FIT-TEK - Prodotto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">FIT-TEK</a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+            </ul>
+
+            <ul class="navbar-nav align-items-center gap-2">
+
+                <li class="nav-item" id="navGuestArea" style="display:none;">
+                    <a class="btn btn-custom-login btn-sm" href="login.html">Accedi</a>
+                </li>
+
+                <li class="nav-item" id="navUserArea" style="display:none;">
+          <div class="d-flex align-items-center gap-2">
+                    <button class="btn btn-link nav-link text-white position-relative px-1" onclick="apriCarrello()" title="Il tuo carrello">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size:.65rem; display:none;">0</span>
+                    </button>
+                    <span class="text-white small">Ciao, <strong id="navUsername"></strong></span>
+                    <a class="btn btn-outline-secondary btn-sm logoutLink" href="#">Logout</a>
+                
+          </div>
+        </li>
+
+                <li class="nav-item" id="navAdminArea" style="display:none;">
+          <div class="d-flex align-items-center gap-2">
+                    <a class="nav-link" href="admin.html">Pannello Admin</a>
+                    <a class="btn btn-outline-danger btn-sm logoutLink" href="#">Logout</a>
+                
+          </div>
+        </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" style="width: 420px; max-width: 95vw;">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold">Il tuo carrello</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body" id="cart-body"></div>
+    <div class="p-3" id="cart-footer"></div>
+</div>
+
+<div id="productWrap"></div>
+
+<footer class="footer mt-auto py-4 bg-black border-top">
+    <div class="container text-center">
+        <p class="text-white-50">© 2026 FIT-TEK - Martino Buzzi &amp; Martina Ciacco</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/nav-auth.js?v=3"></script>
+<script type="module" src="js/cart-ui.js?v=3"></script>
+<script type="module">
+    import { auth } from "./js/firebase-init.js?v=3";
+    import { osservaAutenticazione } from "./js/auth.js?v=3";
+    import { isUtenteAdmin } from "./js/admin.js?v=3";
+    import { leggiProdotto } from "./js/products.js?v=3";
+    import { aggiungiAlCarrello } from "./js/cart.js?v=3";
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    let utenteCorrente = null;
+    let qty = 1;
+
+    if (!id) {
+        window.location.href = "shop.html";
+    }
+
+    osservaAutenticazione(async (user) => {
+        utenteCorrente = user;
+        renderProdotto();
+    });
+
+    document.addEventListener("DOMContentLoaded", renderProdotto);
+
+    async function renderProdotto() {
+        const prodotto = await leggiProdotto(id);
+
+        if (!prodotto) {
+            window.location.href = "shop.html";
+            return;
+        }
+
+        document.getElementById("pageTitle").textContent = "FIT-TEK — " + prodotto.nome;
+
+        let azioni = "";
+
+        if (utenteCorrente) {
+            const admin = await isUtenteAdmin(utenteCorrente.uid);
+
+            if (admin) {
+                azioni = `
+                    <div class="login-nudge">
+                        <p class="mb-2">Sei loggato come amministratore.</p>
+                        <a href="admin.html" class="btn btn-outline-success btn-sm">Vai al pannello admin</a>
+                    </div>
+                    <a href="shop.html" class="btn-back mt-3">← Torna allo shop</a>`;
+            } else {
+                azioni = `
+                    <div class="product-actions">
+                        <div class="qty-control">
+                            <button class="qty-btn" id="qtyMinus">−</button>
+                            <span class="qty-value" id="qtyValue">1</span>
+                            <button class="qty-btn" id="qtyPlus">+</button>
+                            <span class="text-muted small ms-2">quantità</span>
+                        </div>
+                        <button class="btn-add-cart" id="addCartQtyBtn">Aggiungi al carrello</button>
+                        <a href="shop.html" class="btn-back">← Torna allo shop</a>
+                    </div>`;
+            }
+        } else {
+            azioni = `
+                <div class="login-nudge">
+                    <p class="mb-2">Accedi per aggiungere questo prodotto al carrello.</p>
+                    <a href="login.html" class="btn btn-success btn-sm">Accedi</a>
+                </div>
+                <a href="shop.html" class="btn-back mt-3">← Torna allo shop</a>`;
+        }
+
+        document.getElementById("productWrap").innerHTML = `
+            <div class="product-hero">
+                <div class="product-image-panel">
+                    <img src="img/${prodotto.immagine || 'default.jpg'}" onerror="this.src='img/default.jpg'" alt="${prodotto.nome}">
+                </div>
+                <div class="product-info-panel">
+                    <span class="category-pill">${prodotto.categoria}</span>
+                    <h1 class="product-name">${prodotto.nome}</h1>
+                    <div class="accent-line"></div>
+                    <p class="product-description">${prodotto.descrizione}</p>
+                    <div class="product-price">€ ${Number(prodotto.prezzo).toFixed(2)}</div>
+                    ${azioni}
+                </div>
+            </div>`;
+
+        const qtyMinus = document.getElementById("qtyMinus");
+        const qtyPlus = document.getElementById("qtyPlus");
+        const addBtn = document.getElementById("addCartQtyBtn");
+
+        if (qtyMinus) {
+            qtyMinus.addEventListener("click", () => {
+                qty = Math.max(1, qty - 1);
+                document.getElementById("qtyValue").textContent = qty;
+            });
+            qtyPlus.addEventListener("click", () => {
+                qty += 1;
+                document.getElementById("qtyValue").textContent = qty;
+            });
+            addBtn.addEventListener("click", async () => {
+                for (let i = 0; i < qty; i++) {
+                    await aggiungiAlCarrello(utenteCorrente.uid, id);
+                }
+                mostraToast(`${qty} × aggiunto al carrello!`);
+                qty = 1;
+                document.getElementById("qtyValue").textContent = 1;
+                const badge = document.getElementById("cart-badge");
+                if (badge) {
+                    const count = Number(badge.textContent || 0) + qty;
+                    badge.textContent = count;
+                    badge.style.display = "inline-block";
+                }
+            });
+        }
+    }
+
+    function mostraToast(message) {
+        const existing = document.getElementById("cart-toast");
+        if (existing) existing.remove();
+        const toast = document.createElement("div");
+        toast.id = "cart-toast";
+        toast.style.cssText = `position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 9999;
+            background: #198754; color: white; padding: .75rem 1.25rem;
+            border-radius: .5rem; font-size: .9rem; box-shadow: 0 4px 12px rgba(0,0,0,.15);`;
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 2500);
+    }
+</script>
+
+</body>
+</html>

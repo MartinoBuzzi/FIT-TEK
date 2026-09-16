@@ -1,0 +1,392 @@
+/* ==========================================================
+   DESIGN TOKENS
+   ========================================================== */
+
+:root {
+    --color-brand-primary: #0D6EFD;
+    --color-brand-accent: #20C997;
+
+    --color-neutral-background: #F8F9FA;
+    --color-neutral-surface: #FFFFFF;
+
+    --color-neutral-text-primary: #212529;
+    --color-neutral-text-secondary: #333333;
+    --color-neutral-text-muted: #C3D2C6;
+
+    --color-neutral-border: #DEE2E6;
+
+    --color-semantic-success: #198754;
+    --color-semantic-warning: #FFC107;
+    --color-semantic-danger: #DC3545;
+
+    --shadow-small: rgba(0, 0, 0, 0.05);
+    --focus-ring: rgba(32, 201, 151, 0.25);
+    --carousel-text-shadow: rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================
+   LAYOUT
+   ========================================================== */
+
+body {
+    background-color: var(--color-neutral-background);
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--color-neutral-text-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==========================================================
+   ADMIN
+   ========================================================== */
+
+#admin-container {
+    background-color: var(--color-neutral-surface);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-small);
+    margin-bottom: 40px;
+}
+
+/* ==========================================================
+   FORM
+   ========================================================== */
+
+.form-control:focus {
+    border-color: var(--color-brand-accent);
+    box-shadow: 0 0 0 0.25rem var(--focus-ring);
+}
+
+/* ==========================================================
+   CAROUSEL
+   ========================================================== */
+
+.custom-carousel-img {
+    height: 400px;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.carousel-caption {
+    text-shadow: 2px 2px 6px var(--carousel-text-shadow);
+}
+
+.carousel-caption h2 {
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+
+.btn-custom-login {
+    color: var(--color-brand-accent);
+    border: 2px solid var(--color-brand-accent);
+    background: transparent;
+    font-weight: 600;
+    border-radius: 999px;
+    padding: 0.4rem 1.1rem;
+    transition: all 0.2s ease;
+}
+
+.btn-custom-login:hover {
+    color: var(--color-neutral-text-primary) !important;
+    background-color: var(--color-brand-accent);
+}
+
+#navUserArea .logoutLink,
+#navAdminArea .logoutLink {
+    border-radius: 999px;
+    padding: 0.35rem 1rem;
+}
+
+#navUserArea,
+#navAdminArea {
+    padding: 0.25rem 0.5rem;
+}
+
+#navUsername {
+    color: var(--color-brand-accent, #20c997);
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+
+.card-desc-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+footer {
+    border-top: 1px solid var(--color-neutral-border);
+    color: var(--color-neutral-text-muted);
+}
+
+/* ==========================================================
+   COACH
+   ========================================================== */
+
+.coach-ruolo {
+    font-weight: bold;
+    color: var(--color-brand-accent);
+}
+
+.coach-divider {
+    border-top: 1px solid var(--color-neutral-border);
+}
+
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-brand-accent) !important;
+}
+
+/* ==========================================================
+   AUTH (login / registrazione)
+   ========================================================== */
+
+.auth-card {
+    border-radius: 12px;
+    border: none;
+}
+
+.auth-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.auth-tab {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--color-neutral-border);
+    background: var(--color-neutral-surface);
+    color: var(--color-neutral-text-secondary);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.auth-tab.active {
+    background: var(--color-semantic-success);
+    border-color: var(--color-semantic-success);
+    color: white;
+}
+
+.auth-panel {
+    display: none;
+}
+
+.auth-panel.active {
+    display: block;
+}
+
+/* ==========================================================
+   PRODOTTO — dettaglio
+   ========================================================== */
+
+.product-hero {
+    min-height: calc(100vh - 56px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .product-hero { grid-template-columns: 1fr; min-height: auto; }
+    .product-image-panel { min-height: 50vw; }
+}
+
+.product-image-panel {
+    background: var(--color-neutral-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.product-image-panel img {
+    max-width: 70%;
+    max-height: 70vh;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,.5));
+    transition: transform .4s ease;
+}
+
+.product-image-panel img:hover {
+    transform: scale(1.04);
+}
+
+.product-image-panel::before {
+    content: '';
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(32,201,151,.15) 0%, transparent 70%);
+    z-index: 0;
+}
+
+.product-info-panel {
+    background: var(--color-neutral-surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 4rem;
+}
+
+@media (max-width: 992px) {
+    .product-info-panel { padding: 2rem 1.5rem; }
+}
+
+.category-pill {
+    display: inline-block;
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--color-brand-accent);
+    border: 1.5px solid var(--color-brand-accent);
+    border-radius: 2rem;
+    padding: .2rem .85rem;
+    margin-bottom: 1.2rem;
+}
+
+.product-name {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--color-neutral-text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.accent-line {
+    width: 48px;
+    height: 4px;
+    background: var(--color-brand-accent);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+}
+
+.product-description {
+    font-size: 1rem;
+    color: var(--color-neutral-text-secondary);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+}
+
+.product-price {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--color-semantic-success);
+    margin-bottom: 2rem;
+    letter-spacing: -.02em;
+}
+
+.product-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.btn-add-cart {
+    background: var(--color-semantic-success);
+    color: var(--color-neutral-surface);
+    border: none;
+    border-radius: .5rem;
+    padding: .9rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity .2s, transform .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.btn-add-cart:hover { opacity: .88; transform: translateY(-1px); }
+.btn-add-cart:active { transform: translateY(0); }
+
+.btn-back {
+    background: transparent;
+    color: var(--color-neutral-text-muted);
+    border: 1.5px solid var(--color-neutral-border);
+    border-radius: .5rem;
+    padding: .75rem 1.5rem;
+    font-size: .9rem;
+    text-decoration: none;
+    text-align: center;
+    transition: border-color .2s, color .2s;
+}
+
+.btn-back:hover {
+    border-color: var(--color-neutral-text-secondary);
+    color: var(--color-neutral-text-primary);
+}
+
+.qty-control {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin-bottom: .5rem;
+}
+
+.qty-btn {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--color-neutral-border);
+    border-radius: .4rem;
+    background: var(--color-neutral-surface);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .15s, color .15s;
+}
+
+.qty-btn:hover {
+    border-color: var(--color-brand-accent);
+    color: var(--color-brand-accent);
+}
+
+.qty-value {
+    min-width: 36px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--color-neutral-text-primary);
+}
+
+.login-nudge {
+    background: var(--color-neutral-background);
+    border-radius: .5rem;
+    padding: 1rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--color-neutral-text-secondary);
+}
+
+/* ==========================================================
+   TOAST
+   ========================================================== */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
