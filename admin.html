@@ -1,219 +1,176 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Pannello di amministrazione FIT-TEK">
-  <title>Pannello Admin - FIT-TEK</title>
-
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIT-TEK - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=4">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column h-100 bg-light">
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">FIT-TEK</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto align-items-center">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
-      </ul>
-      <ul class="navbar-nav align-items-center gap-2">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="index.html">FIT-TEK</a>
 
-        <li class="nav-item" id="navGuestArea" style="display:none;">
-          <a class="btn btn-custom-login btn-sm" href="login.html">Accedi</a>
-        </li>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        <li class="nav-item" id="navUserArea" style="display:none;">
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto align-items-center">
+                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="shop.html">Shop</a></li>
+            </ul>
+
+            <ul class="navbar-nav align-items-center gap-2">
+
+                <li class="nav-item" id="navGuestArea" style="display:none;">
+                    <a class="btn btn-custom-login btn-sm" href="login.html">Accedi</a>
+                </li>
+
+                <li class="nav-item" id="navUserArea" style="display:none;">
           <div class="d-flex align-items-center gap-2">
-          <button class="btn btn-link nav-link text-white position-relative px-1" onclick="apriCarrello()" title="Il tuo carrello">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-              <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            </svg>
-            <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size:.65rem; display:none;">0</span>
-          </button>
-          <span class="text-white small">Ciao, <strong id="navUsername"></strong></span>
-          <a class="btn btn-outline-secondary btn-sm logoutLink" href="#">Logout</a>
-        
+                    <button class="btn btn-link nav-link text-white position-relative px-1" onclick="apriCarrello()" title="Il tuo carrello">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                        </svg>
+                        <span id="cart-badge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success" style="font-size:.65rem; display:none;">0</span>
+                    </button>
+                    <span class="text-white small">Ciao, <strong id="navUsername"></strong></span>
+                    <a class="btn btn-outline-secondary btn-sm logoutLink" href="#">Logout</a>
+                
           </div>
         </li>
 
-        <li class="nav-item" id="navAdminArea" style="display:none;">
+                <li class="nav-item" id="navAdminArea" style="display:none;">
           <div class="d-flex align-items-center gap-2">
-          <a class="nav-link active" href="admin.html">Pannello Admin</a>
-          <a class="btn btn-outline-danger btn-sm logoutLink" href="#">Logout</a>
-        
+                    <a class="nav-link" href="admin.html">Pannello Admin</a>
+                    <a class="btn btn-outline-danger btn-sm logoutLink" href="#">Logout</a>
+                
           </div>
         </li>
 
-      </ul>
+            </ul>
+        </div>
     </div>
-  </div>
 </nav>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" style="width: 420px; max-width: 95vw;">
-  <div class="offcanvas-header border-bottom">
-    <h5 class="offcanvas-title fw-bold">Il tuo carrello</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-  </div>
-  <div class="offcanvas-body" id="cart-body"></div>
-  <div class="p-3" id="cart-footer"></div>
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold">Il tuo carrello</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body" id="cart-body"></div>
+    <div class="p-3" id="cart-footer"></div>
 </div>
 
-<main class="flex-grow-1 container py-5">
-  <div id="guestMessage" class="text-center py-5 d-none">
-    <p>Devi accedere per vedere questa pagina.</p>
-    <a href="login.html" class="btn btn-success btn-sm">Accedi</a>
-  </div>
+<main class="flex-shrink-0">
 
-  <div id="deniedMessage" class="text-center py-5 d-none">
-    <p class="text-muted">Accesso riservato agli amministratori.</p>
-  </div>
+    <div id="carouselFittek" class="carousel slide shadow-sm mb-5" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselFittek" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselFittek" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselFittek" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
 
-  <div id="admin-container"></div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="img/slide1.jpg" class="d-block w-100 custom-carousel-img" alt="Palestra">
+                <div class="carousel-caption">
+                    <h2>Allenati con noi</h2>
+                    <p class="lead">Attrezzature moderne per i tuoi obiettivi sportivi</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/slide2.jpg" class="d-block w-100 custom-carousel-img" alt="Coach">
+                <div class="carousel-caption">
+                    <h2>Coach esperti</h2>
+                    <p class="lead">Ti seguiamo con programmi personalizzati in ogni fase</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="img/slide3.jpg" class="d-block w-100 custom-carousel-img" alt="Shop">
+                <div class="carousel-caption">
+                    <h2>Il nostro shop</h2>
+                    <p class="lead">Abbigliamento tecnico, integratori e accessori esclusivi</p>
+                </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFittek" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Precedente</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselFittek" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Successivo</span>
+        </button>
+    </div>
+
+    <div class="container text-center mt-5 mb-4">
+        <h2 class="fw-bold text-uppercase tracking-wide">Il Nostro Team di Esperti</h2>
+        <p class="text-muted">Professionisti qualificati al servizio dei tuoi obiettivi fitness</p>
+    </div>
+
+    <section class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-md-5 d-flex justify-content-center mb-4 mb-md-0">
+                <img src="img/coach1.jpg" class="rounded-circle shadow-sm" style="width: 280px; height: 280px; object-fit: cover;" alt="Coach Marco">
+            </div>
+            <div class="col-md-7 ps-md-5 text-center text-md-start">
+                <h3 class="coach-nome">Marco Rossi</h3>
+                <p class="coach-ruolo">Personal Trainer &amp; Strength Coach</p>
+                <p class="coach-desc">Marco ha oltre 10 anni di esperienza nel settore del fitness. Specializzato in allenamento della forza e ipertrofia, ha seguito atleti di ogni livello aiutandoli a raggiungere i loro obiettivi in modo sicuro ed efficace.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="coach-divider"></div>
+
+    <section class="container my-5">
+        <div class="row align-items-center flex-column-reverse flex-md-row">
+            <div class="col-md-7 pe-md-5 text-center text-md-start">
+                <h3 class="coach-nome">Sara Bianchi</h3>
+                <p class="coach-ruolo">Yoga &amp; Functional Training</p>
+                <p class="coach-desc">Sara è specializzata in yoga e allenamento funzionale. Con la sua esperienza aiuta i clienti a migliorare flessibilità, postura e benessere mentale attraverso un approccio olistico al movimento.</p>
+            </div>
+            <div class="col-md-5 d-flex justify-content-center mb-4 mb-md-0">
+                <img src="img/coach2.jpg" class="rounded-circle shadow-sm" style="width: 280px; height: 280px; object-fit: cover;" alt="Coach Sara">
+            </div>
+        </div>
+    </section>
+
+    <div class="container"><hr class="coach-divider"></div>
+
+    <section class="container my-5">
+        <div class="row align-items-center">
+            <div class="col-md-5 d-flex justify-content-center mb-4 mb-md-0">
+                <img src="img/coach3.jpg" class="rounded-circle shadow-sm" style="width: 280px; height: 280px; object-fit: cover;" alt="Coach Luca">
+            </div>
+            <div class="col-md-7 ps-md-5 text-center text-md-start">
+                <h3 class="coach-nome">Luca Ferrari</h3>
+                <p class="coach-ruolo">Cardio &amp; Endurance Coach</p>
+                <p class="coach-desc">Luca è un ex atleta professionista specializzato in allenamento cardiovascolare e resistenza. Prepara i suoi clienti per maratone, triathlon e competizioni sportive con programmi personalizzati e progressivi.</p>
+            </div>
+        </div>
+    </section>
+
 </main>
 
 <footer class="footer mt-auto py-4 bg-black border-top">
-  <div class="container text-center">
-    <p class="text-white-50 small mb-0">&copy; 2026 FIT-TEK — Martino Buzzi &amp; Martina Ciacco</p>
-  </div>
+    <div class="container text-center">
+        <p class="text-white-50">© 2026 FIT-TEK - Martino Buzzi &amp; Martina Ciacco</p>
+        <p class="small text-white-50">Progetto di Tecnologie Web: approcci avanzati <br>
+            Email: <a href="mailto:supporto@fit-tek.com" class="text-success text-decoration-none">supporto@fit-tek.com</a>
+            Tel: <span class="text-success">+39 02 1234567</span>
+        </p>
+    </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="js/nav-auth.js?v=3"></script>
-<script type="module" src="js/cart-ui.js?v=3"></script>
-<script type="module">
-  import { osservaAutenticazione } from "./js/auth.js?v=3";
-  import { isUtenteAdmin } from "./js/admin.js?v=3";
-  import { leggiProdotti, creaProdotto, aggiornaPrezzoProdotto, eliminaProdotto } from "./js/products.js?v=3";
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="js/nav-auth.js?v=4"></script>
+<script type="module" src="js/cart-ui.js?v=4"></script>
 
-  const guestMessage = document.getElementById("guestMessage");
-  const deniedMessage = document.getElementById("deniedMessage");
-  const container = document.getElementById("admin-container");
-
-  osservaAutenticazione(async (user) => {
-    guestMessage.classList.add("d-none");
-    deniedMessage.classList.add("d-none");
-    container.innerHTML = "";
-
-    if (!user) {
-      guestMessage.classList.remove("d-none");
-      return;
-    }
-
-    const admin = await isUtenteAdmin(user.uid);
-    if (!admin) {
-      deniedMessage.classList.remove("d-none");
-      return;
-    }
-
-    loadAdminDashboard();
-  });
-
-  async function loadAdminDashboard() {
-    const prodotti = await leggiProdotti();
-
-    let html = `
-      <div class="mb-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
-        <div>
-          <h3 class="mb-1">Inventario Shop</h3>
-          <p class="text-muted mb-0 small">Aggiungi nuovi prodotti, modifica il prezzo di quelli esistenti o eliminali.</p>
-        </div>
-        <button class="btn btn-success btn-sm" id="btnNuovoProdotto">+ Nuovo Prodotto</button>
-      </div>
-      <div class="table-responsive">
-        <table class="table table-sm align-middle">
-          <thead>
-            <tr><th>Nome</th><th>Categoria</th><th>Prezzo</th><th>File Immagine</th><th>Azioni</th></tr>
-          </thead>
-          <tbody>`;
-
-    prodotti.forEach((prod) => {
-      html += `
-            <tr>
-              <td><strong>${prod.nome}</strong></td>
-              <td>${prod.categoria}</td>
-              <td class="text-success">€ ${parseFloat(prod.prezzo).toFixed(2)}</td>
-              <td><small class="text-muted">${prod.immagine || "default.jpg"}</small></td>
-              <td id="azioni-${prod.id}">
-                <button class="btn btn-outline-warning btn-sm" onclick="showEditRow('${prod.id}', ${prod.prezzo})">Modifica prezzo</button>
-                <button class="btn btn-outline-danger btn-sm" onclick="deleteProduct('${prod.id}')">Elimina</button>
-              </td>
-            </tr>`;
-    });
-
-    html += `
-          </tbody>
-        </table>
-      </div>`;
-
-    container.innerHTML = html;
-    document.getElementById("btnNuovoProdotto").addEventListener("click", showCreateProductForm);
-  }
-
-  function showCreateProductForm() {
-    container.innerHTML = `
-      <h4 class="mb-3">Nuovo Prodotto</h4>
-      <form id="create-product-form" class="vstack gap-2" style="max-width: 480px;">
-        <input type="text" id="p-nome" class="form-control" placeholder="Nome prodotto" required>
-        <select id="p-categoria" class="form-select">
-          <option value="Integratori">Integratori</option>
-          <option value="Attrezzatura">Attrezzatura</option>
-          <option value="Abbigliamento">Abbigliamento</option>
-        </select>
-        <input type="number" step="0.01" min="0" id="p-prezzo" class="form-control" placeholder="Prezzo (€)" required>
-        <input type="text" id="p-immagine" class="form-control" placeholder="Nome file immagine (es. prodotto.jpg)">
-        <textarea id="p-descrizione" class="form-control" placeholder="Descrizione" rows="2" required></textarea>
-        <div class="d-flex gap-2">
-          <button type="submit" class="btn btn-success btn-sm">Salva</button>
-          <button type="button" class="btn btn-light btn-sm" id="btnAnnullaCreazione">Annulla</button>
-        </div>
-      </form>`;
-
-    document.getElementById("btnAnnullaCreazione").addEventListener("click", loadAdminDashboard);
-
-    document.getElementById("create-product-form").addEventListener("submit", async (event) => {
-      event.preventDefault();
-      const immagine = document.getElementById("p-immagine").value.trim();
-
-      await creaProdotto({
-        nome: document.getElementById("p-nome").value,
-        categoria: document.getElementById("p-categoria").value,
-        prezzo: parseFloat(document.getElementById("p-prezzo").value),
-        descrizione: document.getElementById("p-descrizione").value,
-        immagine: immagine !== "" ? immagine : "default.jpg"
-      });
-
-      loadAdminDashboard();
-    });
-  }
-
-  window.showEditRow = function (id, prezzo) {
-    document.getElementById(`azioni-${id}`).innerHTML = `
-      <div class="input-group input-group-sm" style="max-width: 220px;">
-        <input type="number" step="0.01" min="0" id="edit-prezzo-${id}" class="form-control" value="${prezzo}">
-        <button class="btn btn-success" onclick="saveProductUpdate('${id}')">Salva</button>
-        <button class="btn btn-secondary" onclick="loadAdminDashboardGlobal()">Annulla</button>
-      </div>`;
-  };
-
-  window.saveProductUpdate = async function (id) {
-    const nuovoPrezzo = parseFloat(document.getElementById(`edit-prezzo-${id}`).value);
-    await aggiornaPrezzoProdotto(id, nuovoPrezzo);
-    loadAdminDashboard();
-  };
-
-  window.deleteProduct = async function (id) {
-    if (!confirm("Eliminare questo prodotto dal catalogo?")) return;
-    await eliminaProdotto(id);
-    loadAdminDashboard();
-  };
-
-  window.loadAdminDashboardGlobal = loadAdminDashboard;
-</script>
 </body>
 </html>
