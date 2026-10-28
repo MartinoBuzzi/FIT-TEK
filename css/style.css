@@ -1,0 +1,141 @@
+/* ==========================================================
+   DESIGN TOKENS
+   Tutti i colori sono definiti qui e riutilizzati tramite var()
+   ========================================================== */
+
+:root {
+
+    /* ===== Brand ===== */
+    --color-brand-primary: #0D6EFD;
+    --color-brand-accent: #20C997;
+
+    /* ===== Neutral ===== */
+    --color-neutral-background: #F8F9FA;
+    --color-neutral-surface: #FFFFFF;
+
+    --color-neutral-text-primary: #212529;
+    --color-neutral-text-secondary: #333333;
+    --color-neutral-text-muted: #C3D2C6;
+
+    --color-neutral-border: #DEE2E6;
+
+    /* ===== Semantic ===== */
+    --color-semantic-success: #198754;
+    --color-semantic-warning: #FFC107;
+    --color-semantic-danger: #DC3545;
+
+    /* ===== Effects ===== */
+    --shadow-small: rgba(0, 0, 0, 0.05);
+    --focus-ring: rgba(32, 201, 151, 0.25);
+    --carousel-text-shadow: rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================
+   LAYOUT
+   ========================================================== */
+
+body {
+    background-color: var(--color-neutral-background);
+    font-family: system-ui, -apple-system, sans-serif;
+    color: var(--color-neutral-text-secondary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* ==========================================================
+   ADMIN
+   ========================================================== */
+
+#admin-container {
+    background-color: var(--color-neutral-surface);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px var(--shadow-small);
+    margin-bottom: 40px;
+}
+
+/* ==========================================================
+   FORM
+   ========================================================== */
+
+.form-control:focus {
+    border-color: var(--color-brand-accent);
+    box-shadow: 0 0 0 0.25rem var(--focus-ring);
+}
+
+/* ==========================================================
+   CAROUSEL
+   ========================================================== */
+
+.custom-carousel-img {
+    height: 400px;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.carousel-caption {
+    text-shadow: 2px 2px 6px var(--carousel-text-shadow);
+}
+
+.carousel-caption h2 {
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+
+.btn-custom-login {
+    color: var(--color-brand-accent);
+    border: 2px solid var(--color-brand-accent);
+    background: transparent;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.btn-custom-login:hover {
+    color: var(--color-neutral-text-primary) !important;
+    background-color: var(--color-brand-accent);
+}
+
+/* ==========================================================
+   CARDS
+   ========================================================== */
+
+.card-desc-truncate {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================
+   FOOTER
+   ========================================================== */
+
+footer {
+    border-top: 1px solid var(--color-neutral-border);
+    color: var(--color-neutral-text-muted);
+}
+
+/* ==========================================================
+   COACH
+   ========================================================== */
+
+.coach-ruolo {
+    font-weight: bold;
+    color: var(--color-brand-accent);
+}
+
+/* ==========================================================
+   NAVBAR
+   ========================================================== */
+
+.navbar-nav .nav-link:hover {
+    color: var(--color-brand-accent) !important;
+}

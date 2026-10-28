@@ -1,0 +1,10 @@
+# File di configurazione sensibili
+config.local.php
+.env
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
