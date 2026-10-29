@@ -1,17 +1,11 @@
 <?php
 
 // endpoint unico per tutte le operazioni del carrello
-// il metodo HTTP determina l'operazione:
-//   GET    → leggi carrello
-//   POST   → aggiungi prodotto
-//   PUT    → aggiorna quantità
-//   DELETE → rimuovi prodotto
-
-require '../prodotti/cors.php';
+require_once __DIR__ . '/../prodotti/cors.php';
 session_start();
 
-include_once '../../classes/Database.php';
-include_once '../../classes/Carrello.php';
+require_once __DIR__ . '/../../classes/Database.php';
+require_once __DIR__ . '/../../classes/Carrello.php';
 
 // solo gli utenti loggati possono usare il carrello (non gli admin)
 if (!isset($_SESSION['user_logged_in']) || $_SESSION['user_logged_in'] !== true) {

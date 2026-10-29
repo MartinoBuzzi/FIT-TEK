@@ -3,12 +3,12 @@
 document.addEventListener("DOMContentLoaded", function() {
     loadProducts('');
 
-    document.getElementById("search-btn").addEventListener("click", function() {
+    document.getElementById("search-btn")?.addEventListener("click", function() {
         const term = document.getElementById("search-input").value.trim();
         loadProducts(term);
     });
 
-    document.getElementById("search-input").addEventListener("keypress", function(e) {
+    document.getElementById("search-input")?.addEventListener("keypress", function(e) {
         if (e.key === "Enter") {
             const term = this.value.trim();
             loadProducts(term);
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function() {
 function loadProducts(term) {
     const container = document.getElementById("products-container");
     const title     = document.getElementById("search-title");
+
+    if (!container) return;
 
     container.innerHTML = `
         <div class="text-center py-5 w-100">
@@ -37,9 +39,9 @@ function loadProducts(term) {
                             prod.descrizione.toLowerCase().includes(termLower) ||
                             prod.categoria.toLowerCase().includes(termLower)
                 );
-                title.innerHTML = `Risultati per: <span class="text-primary">"${term}"</span>`;
+                if (title) title.innerHTML = `Risultati per: <span class="text-primary">"${term}"</span>`;
             } else {
-                title.textContent = "Tutti i Prodotti";
+                if (title) title.textContent = "Tutti i Prodotti";
             }
 
             if (data.length === 0) {
@@ -60,10 +62,9 @@ function loadProducts(term) {
             data.forEach(prod => {
 
                 // il pulsante "Aggiungi al carrello" viene mostrato solo se USER_LOGGED_IN è true
-                // USER_LOGGED_IN è una variabile JS iniettata da shop.php tramite PHP
                 const cartButton = (typeof USER_LOGGED_IN !== 'undefined' && USER_LOGGED_IN)
                     ? `<button class="btn btn-success btn-sm mt-2 w-100"
-                               onclick="addToCart(${prod.id})">
+                               onclick="aggiungiAggiungiAlCarrello(${prod.id})">
                            Aggiungi al carrello
                        </button>`
                     : `<a href="login.php" class="btn btn-outline-secondary btn-sm mt-2 w-100">
@@ -112,4 +113,25 @@ function loadProducts(term) {
             container.innerHTML = `
                 <p class="text-danger text-center">Errore nel caricamento dei prodotti.</p>`;
         });
+}
+
+// Gestore sicuro per l'aggiunta al carrello
+function aggiungiAggiungiAlCarrello(idProdotto) {
+    if (typeof addToCart === 'function') {
+        addToCart(idProdotto);
+    } else {
+        fetch('api/carrello/carrello.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id_prodotto: idProdotto })
+        })
+        .then(res => res.json())
+        .then(data => {
+            alert(data.message || "Prodotto aggiunto!");
+            if (typeof updateBadge === 'function' && data.count !== undefined) {
+                updateBadge(data.count);
+            }
+        })
+        .catch(() => alert("Errore durante l'aggiunta al carrello."));
+    }
 }
